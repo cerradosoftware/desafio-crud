@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/v1/cliente")
+@RequestMapping("/v1/clientes")
 public class ClienteController {
 
     @Autowired
@@ -23,7 +23,7 @@ public class ClienteController {
         return clienteRepository.findAll();
     }
 
-    @RequestMapping(value = "/cliente/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Cliente> GetById(@PathVariable(value = "id") long id)
     {
         Optional<Cliente> cliente = clienteRepository.findById(id);
@@ -33,13 +33,13 @@ public class ClienteController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @RequestMapping(value = "/cliente", method =  RequestMethod.POST)
+    @RequestMapping(value = "/save", method =  RequestMethod.POST)
     public Cliente Post(@Valid @RequestBody Cliente cliente)
     {
         return clienteRepository.save(cliente);
     }
 
-    @RequestMapping(value = "/cliente/{id}", method =  RequestMethod.PUT)
+    @RequestMapping(value = "/update/{id}", method =  RequestMethod.PUT)
     public ResponseEntity<Cliente> Put(@PathVariable(value = "id") long id, @Valid @RequestBody Cliente newCliente)
     {
         Optional<Cliente> oldCliente = clienteRepository.findById(id);
@@ -53,7 +53,7 @@ public class ClienteController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @RequestMapping(value = "/cliente/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Object> Delete(@PathVariable(value = "id") long id)
     {
         Optional<Cliente> cliente = clienteRepository.findById(id);
@@ -64,7 +64,4 @@ public class ClienteController {
         else
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
-
-
-
 }

@@ -16,9 +16,6 @@ public class Telefone {
     @NotNull(message = "Numero nao pode ser nulo")
     private String numero;
 
-    @ManyToOne
-    private Cliente cliente;
-
     public Long getId() {
         return id;
     }
@@ -41,13 +38,5 @@ public class Telefone {
 
     public void setNumero(String numero) {
         this.numero = numero;
-    }
-
-    public Cliente getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
     }
 }

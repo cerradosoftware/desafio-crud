@@ -23,11 +23,12 @@ public class Cliente {
     private String cpf;
 
     @NotNull (message = "Endereco nao pode ser nulo")
-    @OneToOne
+    @OneToOne(cascade=CascadeType.ALL)
     private Endereco endereco;
 
     @NotNull (message = "Ao menos um telefone deve ser informado")
-    @OneToMany(mappedBy = "cliente")
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="clientes_id")
     private List<Telefone> telefones;
 
     @NotNull (message = "Ao menos um email deve ser informado")
