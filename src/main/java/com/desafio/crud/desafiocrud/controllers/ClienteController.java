@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -28,7 +27,7 @@ public class ClienteController {
     {
         Optional<Cliente> cliente = clienteRepository.findById(id);
         if(cliente.isPresent())
-            return new ResponseEntity<Cliente>(cliente.get(), HttpStatus.OK);
+            return new ResponseEntity<>(cliente.get(), HttpStatus.OK);
         else
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
@@ -47,7 +46,7 @@ public class ClienteController {
             Cliente cliente = oldCliente.get();
             cliente.setNome(newCliente.getNome());
             clienteRepository.save(cliente);
-            return new ResponseEntity<Cliente>(cliente, HttpStatus.OK);
+            return new ResponseEntity<>(cliente, HttpStatus.OK);
         }
         else
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
