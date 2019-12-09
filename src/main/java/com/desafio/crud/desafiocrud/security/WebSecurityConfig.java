@@ -30,10 +30,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/v1/acesso/login").permitAll()
+                .antMatchers("/v1/acesso/login", "/h2/**", "/").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
+        http.headers().frameOptions().disable();
 
             http.addFilterBefore(new JwtTokenFilter(userDetailsService, secret), UsernamePasswordAuthenticationFilter.class);
     }
@@ -47,12 +49,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     @Override
     public UserDetailsService userDetailsService() {
+        /**
+         * Usuarios hardcode para fins de exemplo.
+         */
         UserDetails user = User.withDefaultPasswordEncoder()
                 .username("admin")
                 .password("123456")
-                .roles("USER")
+                .roles("ADMIN")
                 .build();
 
-        return new InMemoryUserDetailsManager(user);
+        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager(user);
+        manager.createUser(User.withDefaultPasswordEncoder().username("comum").password("123456").roles("USER").build());
+
+        return manager;
     }
 }
