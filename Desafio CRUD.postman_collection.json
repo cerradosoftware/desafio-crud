@@ -1,0 +1,220 @@
+{
+	"info": {
+		"_postman_id": "7d2d361d-4a34-492c-bb67-8a9ed04da537",
+		"name": "Desafio CRUD",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Lista Cliente",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/v1/clientes/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"clientes",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "819fc7a3-6a85-4401-8d75-7e1bcbfcd91f",
+						"exec": [
+							"const jwt = pm.response.json().jwt;",
+							"console.log(jwt);",
+							"",
+							"pm.environment.set(\"jwt_token\", \"Bearer \"+jwt);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"login\": \"admin\",\n\t\"password\": \"123456\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/acesso/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"acesso",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Busca Cliente",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/v1/clientes/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"clientes",
+						"1"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Salva Cliente",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nome\": \"Vinicius\",\r\n    \"cpf\": \"03927658103\",\r\n    \"endereco\": {\r\n    \r\n        \"cep\": \"71010105\",\r\n        \"logradouro\": \"QI 8 COnj J\",\r\n        \"bairro\": \"Guara\",\r\n        \"complemento\": \"Casa 21\",\r\n        \"cidade\": \"Brasilia\",\r\n        \"uf\": \"DF\"\r\n    },\r\n    \"telefones\": [\r\n        {\r\n           \r\n            \"tipo\": \"CELULAR\",\r\n            \"numero\": \"61982987442\"\r\n        },\r\n        {\r\n           \r\n            \"tipo\": \"COMERCIAL\",\r\n            \"numero\": \"61982987442\"\r\n        }\r\n    ],\r\n    \"emails\": [\r\n        \"teste@gmail.com\",\r\n        \"teste2@gmail.com\"\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/clientes/save",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"clientes",
+						"save"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Atualiza Cliente",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nome\": \"Vinicius 2\",\r\n    \"cpf\": \"03927658103\",\r\n    \"endereco\": {\r\n    \r\n        \"cep\": \"71010105\",\r\n        \"logradouro\": \"QI 8 COnj J\",\r\n        \"bairro\": \"Guara\",\r\n        \"complemento\": \"Casa 21\",\r\n        \"cidade\": \"Brasilia\",\r\n        \"uf\": \"DF\"\r\n    },\r\n    \"telefones\": [\r\n        {\r\n           \r\n            \"tipo\": \"CELULAR\",\r\n            \"numero\": \"61982987442\"\r\n        },\r\n        {\r\n           \r\n            \"tipo\": \"COMERCIAL\",\r\n            \"numero\": \"61982987442\"\r\n        }\r\n    ],\r\n    \"emails\": [\r\n        \"teste@gmail.com\",\r\n        \"teste2@gmail.com\"\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/clientes/update/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"clientes",
+						"update",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
